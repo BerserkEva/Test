@@ -25,6 +25,8 @@ public class gameController : MonoBehaviour {
 	private int score;
 	private int lives;
 
+	public Camera camera;
+
 	void UpdateScore()
 	{
 		scoreText.text = "Score: " + score;
@@ -44,9 +46,13 @@ public class gameController : MonoBehaviour {
 		restartText.text = "";
 		lives = 3;
 
+
+
 		UpdateScore ();
 		UpdateLife ();
 		StartCoroutine( SpawnWaves ());
+
+
 	}
 	
 	IEnumerator SpawnWaves()
@@ -63,7 +69,7 @@ public class gameController : MonoBehaviour {
 				viewPos.y = Mathf.Clamp01(viewPos.y);
 				transform.position = Camera.main.ViewportToWorldPoint(viewPos);
 
-				Vector3 SpawnPosition = new Vector3 ((SpawnValues.x + viewPos.x), Random.Range(-SpawnValues.y , SpawnValues.y), SpawnValues.z);
+				Vector3 SpawnPosition = new Vector3 ((SpawnValues.x + camera.transform.position.x), Random.Range(-SpawnValues.y , SpawnValues.y), SpawnValues.z);
 				Quaternion SpawnRotation = Quaternion.identity;
 				Instantiate (Hazard, SpawnPosition, SpawnRotation);
 
