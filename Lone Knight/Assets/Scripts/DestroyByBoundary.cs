@@ -11,7 +11,7 @@ public class DestroyByBoundary : MonoBehaviour {
 		{
 			Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
 			viewPos.x = Mathf.Clamp01(viewPos.x);
-			viewPos.y = Mathf.Clamp01(viewPos.y-2);
+			viewPos.y = Mathf.Clamp01(viewPos.y - 2);
 			transform.position = Camera.main.ViewportToWorldPoint(viewPos);
 		}
 	

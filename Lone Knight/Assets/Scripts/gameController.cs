@@ -20,6 +20,7 @@ public class gameController : MonoBehaviour {
 	public GUIText lifeText;
 
 	private bool gameOver;
+	private bool stopped;
 	private bool restart;
 
 	private int score;
@@ -42,6 +43,7 @@ public class gameController : MonoBehaviour {
 		score = 0;
 		gameOver = false;
 		restart = false;
+		stopped = false;
 		gameOverText.text = "";
 		restartText.text = "";
 		lives = 3;
@@ -50,13 +52,27 @@ public class gameController : MonoBehaviour {
 
 		UpdateScore ();
 		UpdateLife ();
-		StartCoroutine( SpawnWaves ());
+		StartCoroutine ("SpawnWaves");
 
+		/*if (stopped == false)
+		{
+			StopCoroutine ("SpawnWaves");
+		}*/
 
 	}
 	
 	IEnumerator SpawnWaves()
 	{
+		if(camera.transform.position.x >= 140)
+		{
+			stopped = true;
+		}
+
+		if(stopped)
+		{
+			yield break;
+		}
+
 		yield return new WaitForSeconds(startWait);
 		while (!gameOver) 
 		{
@@ -73,18 +89,28 @@ public class gameController : MonoBehaviour {
 				Quaternion SpawnRotation = Quaternion.identity;
 				Instantiate (Hazard, SpawnPosition, SpawnRotation);
 
-
+				if(stopped)
+				{
+					yield break;
+				}
 
 				yield return new WaitForSeconds (spawnWait);
 			}
 
+			if(stopped)
+			{
+				yield break;
+			}
+
 			yield return new WaitForSeconds(waveWait);
+
 
 			if (gameOver)
 			{
 				restartText.text = "Press R to restart.";
 				restart = true;
 				break;
+
 			}
 		}
 	}
@@ -116,10 +142,16 @@ public class gameController : MonoBehaviour {
 				Application.LoadLevel(Application.loadedLevel);
 			}
 		}
+
+		if (camera.transform.position.x >= 140)
+		{
+			StopCoroutine ("SpawnWaves");
+		}
+
 	}
 
 
-	/*private void Scrolling1()
+	/*private void stoppeding1()
 	{
 		//yield return new WaitForSeconds (startWait);
 		while (!gameOver) 

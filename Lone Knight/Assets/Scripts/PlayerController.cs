@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update()
 	{
+		Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+		viewPos.x = Mathf.Clamp01(viewPos.x);
+		viewPos.y = Mathf.Clamp01(viewPos.y);
+		transform.position = Camera.main.ViewportToWorldPoint(viewPos);
+
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -49,7 +54,7 @@ public class PlayerController : MonoBehaviour {
 		//	currentSpeed.x += acceleration;
 		//}
 
-		Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+		/*Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
 		viewPos.x = Mathf.Clamp01(viewPos.x);
 		viewPos.y = Mathf.Clamp01(viewPos.y);
 		rigidbody.position = new Vector3 
@@ -60,7 +65,9 @@ public class PlayerController : MonoBehaviour {
 				);
 
 
-		transform.position = Camera.main.ViewportToWorldPoint(viewPos);
+		transform.position = Camera.main.ViewportToWorldPoint(viewPos);*/
+
+
 		
 		//rigidbody.rotation = Quaternion.Euler(0.0f, rigidbody.velocity.y, 0.0f) - tilt;
 	}

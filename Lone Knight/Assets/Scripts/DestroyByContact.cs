@@ -35,10 +35,13 @@ public class DestroyByContact : MonoBehaviour {
 
 		if (other.tag == "Player") 
 		{
-			Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
+			if (currentLives == 0);
+			{
+				Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
+				GameController.GameOver();
+			}
 			GameController.RemoveLife();
 			currentLives -= 1;
-			GameController.GameOver();
 			/*if( currentLives == 0 )
 			{
 				//Destroy (other.gameObject);
