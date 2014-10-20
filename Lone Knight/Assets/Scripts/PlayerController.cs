@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	public float fireRate;
 	
 	private float nextFire;
-	
+
 	void Update()
 	{
 		Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -47,29 +47,6 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 movement = new Vector3(moveHoriztontal, moveVertical, 0.0f);
 		rigidbody.velocity = movement * speed;
-		//currentSpeed = rigidbody.velocity;
-		
-		//if (currentSpeed.x < maxSpeed) 
-		//{
-		//	currentSpeed.x += acceleration;
-		//}
-
-		/*Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
-		viewPos.x = Mathf.Clamp01(viewPos.x);
-		viewPos.y = Mathf.Clamp01(viewPos.y);
-		rigidbody.position = new Vector3 
-			(
-				Mathf.Clamp(rigidbody.position.x, boundary.xmin, boundary.xmax),
-				Mathf.Clamp(rigidbody.position.y, boundary.ymin, boundary.ymax),
-				0.0f
-				);
-
-
-		transform.position = Camera.main.ViewportToWorldPoint(viewPos);*/
-
-
-		
-		//rigidbody.rotation = Quaternion.Euler(0.0f, rigidbody.velocity.y, 0.0f) - tilt;
 	}
 	
 }

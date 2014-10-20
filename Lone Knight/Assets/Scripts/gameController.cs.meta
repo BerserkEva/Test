@@ -2,7 +2,14 @@ fileFormatVersion: 2
 guid: 3b23b40561acee045b36a29fdeac19c7
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Hazard: {fileID: 100002, guid: eba948bd214680c4d82146ec869cf1d6, type: 2}
+  - player1: {fileID: 100000, guid: 0aba84318ce93b54e8def0cf725ad748, type: 2}
+  - scoreText: {instanceID: 0}
+  - restartText: {instanceID: 0}
+  - gameOverText: {instanceID: 0}
+  - lifeText: {instanceID: 0}
+  - camera: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

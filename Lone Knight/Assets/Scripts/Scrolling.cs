@@ -8,18 +8,17 @@ public class Scrolling : MonoBehaviour
 	//pos.x = ;
 
 
-	void Update() 
+	void FixedUpdate() 
 	{
-
-			if (transform.position.x < 150.0f)
-			{
-				float translation = Time.deltaTime * 5;
-				transform.Translate (translation, 0, 0);
-			} 
-			else 
-			{
-				transform.position = pos;
-			}
+		if (transform.position.x < 150.0f)
+		{
+			float translation = Time.deltaTime * 5;
+			transform.Translate (translation, 0, 0);
+		} 
+		else 
+		{
+			transform.position = pos;
 		}
+	}
 
 }

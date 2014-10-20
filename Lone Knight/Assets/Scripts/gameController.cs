@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class gameController : MonoBehaviour {
-
+public class gameController : MonoBehaviour 
+{
 	public GameObject Hazard;
 	public Vector3 SpawnValues;
 	public int hazardCount;
+
+	public GameObject player1;
 
 	private Boundary boundary;
 	//private Vector3 pos = new Vector3(150.0f, 0.0f, 0.0f); 
@@ -48,29 +50,50 @@ public class gameController : MonoBehaviour {
 		restartText.text = "";
 		lives = 3;
 
-
+		//boundary.transform.position = camera.transform.position;
 
 		UpdateScore ();
 		UpdateLife ();
 		StartCoroutine ("SpawnWaves");
+		//StartCoroutine ("SpawnPlayer");
 
-		/*if (stopped == false)
-		{
-			StopCoroutine ("SpawnWaves");
-		}*/
-
+		Instantiate (player1, player1.transform.position, player1.transform.rotation);
 	}
+
+	/*public IEnumerator SpawnPlayer()
+	{
+		Debug.Log (lives);
+		float spawnW = 3.0f;
+
+		while (lives > 0) 
+		{
+			if (lives >= 1)
+			{
+				Instantiate (player1, player1.transform.position, player1.transform.rotation);
+			}
+			
+			if (lives < 1) 
+			{
+				GameOver();
+				yield break;
+			}
+
+			yield return new WaitForSeconds (spawnW);
+		}
+
+		if (gameOver) 
+		{
+			Restart();
+			yield break;
+		}
+	}*/
+
 	
 	IEnumerator SpawnWaves()
 	{
 		if(camera.transform.position.x >= 140)
 		{
 			stopped = true;
-		}
-
-		if(stopped)
-		{
-			yield break;
 		}
 
 		yield return new WaitForSeconds(startWait);
@@ -89,17 +112,7 @@ public class gameController : MonoBehaviour {
 				Quaternion SpawnRotation = Quaternion.identity;
 				Instantiate (Hazard, SpawnPosition, SpawnRotation);
 
-				if(stopped)
-				{
-					yield break;
-				}
-
 				yield return new WaitForSeconds (spawnWait);
-			}
-
-			if(stopped)
-			{
-				yield break;
 			}
 
 			yield return new WaitForSeconds(waveWait);
@@ -107,8 +120,7 @@ public class gameController : MonoBehaviour {
 
 			if (gameOver)
 			{
-				restartText.text = "Press R to restart.";
-				restart = true;
+				Restart();
 				break;
 
 			}
@@ -125,6 +137,12 @@ public class gameController : MonoBehaviour {
 	{
 		lives -= 1;
 		UpdateLife ();
+	}
+
+	public void Restart()
+	{
+		restartText.text = "Press R to restart.";
+		restart = true;
 	}
 
 	public void GameOver()
@@ -148,24 +166,10 @@ public class gameController : MonoBehaviour {
 			StopCoroutine ("SpawnWaves");
 		}
 
-	}
-
-
-	/*private void stoppeding1()
-	{
-		//yield return new WaitForSeconds (startWait);
-		while (!gameOver) 
+		if (lives < 1) 
 		{
-			if (Camera.main.transform.position.x < 150.0f) 
-			{
-				float translation = Time.deltaTime * 2;
-				Camera.main.transform.Translate (translation, 0, 0);
-			}
-			else 
-			{
-				Camera.main.transform.position = pos;
-			break;
-			}
+			StopCoroutine("SpawnPlayer");
 		}
-	}*/
+
+	}
 }
