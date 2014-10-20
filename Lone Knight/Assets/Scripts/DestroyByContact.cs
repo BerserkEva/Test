@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
 public class DestroyByContact : MonoBehaviour {
 
 	public GameObject explosion;
@@ -36,24 +35,18 @@ public class DestroyByContact : MonoBehaviour {
 
 		if (other.tag == "Player") 
 		{
-			Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
-			GameController.GameOver();
-			currentLives -= 1;
-			GameController.RemoveLife();
-			//GameController.SpawnPlayer();
-
-			//Debug.Log( currentLives);
-
-			/*if (currentLives > 0)
+			if (currentLives == 0);
 			{
-				Instantiate(other, other.transform.position, other.transform.rotation);
+				Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
+				GameController.GameOver();
 			}
-
-			else
+			GameController.RemoveLife();
+			currentLives -= 1;
+			/*if( currentLives == 0 )
 			{
+				//Destroy (other.gameObject);
 				GameController.GameOver();
 			}*/
-
 		}
 
 		GameController.AddScore (scoreValue);
@@ -61,5 +54,3 @@ public class DestroyByContact : MonoBehaviour {
 		Destroy (gameObject);
 	}
 }
-
-

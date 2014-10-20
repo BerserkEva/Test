@@ -4,7 +4,6 @@ using System.Collections;
 public class EndLevel : MonoBehaviour {
 
 	private gameController GameController;
-	public GameObject test;
 
 	void Start()
 	{
@@ -29,20 +28,7 @@ public class EndLevel : MonoBehaviour {
 
 		if(other.tag == "Player")
 	    {
-			GameController.Restart();
 			GameController.GameOver();
-			return;
 		}
-
-		/*if (other.tag == "Finish") 
-		{
-			int counter;
-			while(counter < 10)
-			{
-				counter++;
-			}
-		}*/
-		Destroy (other.gameObject);
-		Destroy (gameObject);
 	}
 }
